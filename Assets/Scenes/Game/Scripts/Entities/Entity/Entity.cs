@@ -32,18 +32,9 @@ public abstract class Entity : MonoBehaviour
         get { return m_entityType; }
     }
 
-    public Entity(int id, EntityType entityType)
+    private void Start()
     {
-        m_entityID = id;
-        m_mass = 1;
-        m_entityType = entityType;
-    }
-
-    public Entity(int id, int mass, EntityType entityType)
-    {
-        m_entityID = id;
-        m_mass = mass;
-        m_entityType = entityType;
+        InitEntity();
     }
 
     public abstract void InitEntity();

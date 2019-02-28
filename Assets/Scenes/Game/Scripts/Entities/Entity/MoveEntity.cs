@@ -6,17 +6,12 @@ public abstract class MoveEntity : Entity
 {
 	protected Rigidbody2D m_rigidBody;
 	protected BoxCollider2D m_collider;
+	protected float m_angle;
+
+	[Range(0f, 100f)] public float m_turnSpeed;
+	[Range(0f, 100f)] public float m_moveSpeed;
+	[Range(0f, 100f)] public float m_accelerateSpeed;
 	
-	public MoveEntity(int id, EntityType entityType) 
-		: base(id, entityType)
-	{
-	}
-
-	public MoveEntity(int id, int mass, EntityType entityType) 
-		: base(id, mass, entityType)
-	{
-	}
-
 	public override void InitEntity()
 	{
 		m_rigidBody = GetComponent<Rigidbody2D>();
@@ -33,4 +28,15 @@ public abstract class MoveEntity : Entity
 		Destroy(m_collider);
 		m_collider = null;
 	}
+
+	protected Vector2 LocalForward()
+	{
+		return (transform.worldToLocalMatrix * transform.forward).normalized;
+	}
+	
+	protected Vector2 Forward()
+	{
+		return transform.up.normalized;
+	}
+	
 }

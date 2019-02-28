@@ -15,13 +15,23 @@ public class GameInputController : UnitySingleton<GameInputController>
     
     private void Start()
     {
-        m_curControl = gameObject.AddComponent<GameKeyBoardControl>();
+        InitCurControl();
     }
     
     public void RegisterAction(Action<Vector2> moveAction, Action<bool> accelerateAction, Action<bool> fireAction)
     {
+        InitCurControl();
+        
         CurControl.MoveAction = moveAction;
         CurControl.AccelerateAction = accelerateAction;
         CurControl.FireAction = fireAction;
+    }
+
+    private void InitCurControl()
+    {
+        if (m_curControl == null)
+        {
+            m_curControl = gameObject.AddComponent<GameKeyBoardControl>();
+        }
     }
 }
