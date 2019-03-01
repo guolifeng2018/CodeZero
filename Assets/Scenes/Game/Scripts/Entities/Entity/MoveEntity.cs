@@ -7,10 +7,12 @@ public abstract class MoveEntity : Entity
 	protected Rigidbody2D m_rigidBody;
 	protected BoxCollider2D m_collider;
 	protected float m_angle;
+	protected Vector2 m_velocity;
 
-	[Range(0f, 100f)] public float m_turnSpeed;
+	[Range(0f, 360f)] public float m_turnSpeed;
 	[Range(0f, 100f)] public float m_moveSpeed;
 	[Range(0f, 100f)] public float m_accelerateSpeed;
+	[Range(0f, 100f)] public float m_maxSpeed;
 	
 	public override void InitEntity()
 	{
