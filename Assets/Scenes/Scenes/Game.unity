@@ -328,9 +328,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_turnSpeed: 200
-  m_moveSpeed: 0
+  m_moveSpeed: 0.1
   m_accelerateSpeed: 15
-  m_maxSpeed: 5.9
+  m_maxIdleSpeed: 1
+  m_maxAccelerateSpeed: 5.9
+  m_lerpSpeed: 2
 --- !u!1 &685778543
 GameObject:
   m_ObjectHideFlags: 0

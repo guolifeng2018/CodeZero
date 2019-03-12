@@ -8,6 +8,8 @@ public class PlayerEntity : MoveEntity
     protected bool m_accelerate;
     protected bool m_fire;
     protected float m_recordTime;
+    protected Vector2 m_beginVelocity;
+    protected float m_t;
 
     public override void InitEntity()
     {
@@ -30,6 +32,8 @@ public class PlayerEntity : MoveEntity
     {
         m_accelerate = accelerate;
         m_recordTime = 0f;
+        m_beginVelocity = m_rigidBody.velocity;
+        m_t = 0f;
     }
 
     public void SetFireState(bool fire)
@@ -42,12 +46,21 @@ public class PlayerEntity : MoveEntity
         return m_accelerate ? m_accelerateSpeed : m_moveSpeed;
     }
 
+    protected float GetMaxSpeed()
+    {
+        return m_accelerate ? m_maxAccelerateSpeed : m_maxIdleSpeed;
+    }
+
     private void Update()
     {
         m_velocity += Forward() * GetSpeed() * Time.deltaTime;
-        m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
-        m_rigidBody.velocity = m_velocity;
-
+        m_velocity = Vector3.ClampMagnitude(m_velocity, GetMaxSpeed());
+        m_t += Time.deltaTime * m_lerpSpeed;
+        m_t = Mathf.Clamp01(m_t);
+        
+        Debug.LogError("T : " + m_t + "            " + m_velocity + "        " + m_beginVelocity);
+        m_rigidBody.velocity = Vector2.Lerp(m_beginVelocity, m_velocity, m_t);
+        
         m_angle -= m_turn.normalized.x * m_turnSpeed * Time.deltaTime;
         m_rigidBody.MoveRotation(m_angle);
     }

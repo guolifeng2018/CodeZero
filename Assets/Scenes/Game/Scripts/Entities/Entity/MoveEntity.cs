@@ -12,7 +12,9 @@ public abstract class MoveEntity : Entity
 	[Range(0f, 360f)] public float m_turnSpeed;
 	[Range(0f, 100f)] public float m_moveSpeed;
 	[Range(0f, 100f)] public float m_accelerateSpeed;
-	[Range(0f, 100f)] public float m_maxSpeed;
+	[Range(0f, 100f)] public float m_maxIdleSpeed;
+	[Range(0f, 100f)] public float m_maxAccelerateSpeed;
+	[Range(0f, 5f)] public float m_lerpSpeed;
 	
 	public override void InitEntity()
 	{
