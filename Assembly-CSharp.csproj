@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scenes\Game\Scripts\Camera\GameCameraControl.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Controllers\GameControlBase.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Controllers\GameInputController.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Controllers\GameKeyBoardControl.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Assets\Scenes\Game\Scripts\Entities\Entity\PlayerEntity.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Entities\GameEntitiesManager.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Entities\GameEntityFactory.cs" />
+    <Compile Include="Assets\Scenes\Game\Scripts\GameStarter.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Singleton\Singleton.cs" />
     <Compile Include="Assets\Scenes\Game\Scripts\Singleton\UnitySingleton.cs" />
     <Compile Include="Assets\Scenes\ThirdParty\Behavior Designer\Runtime\Actions\BehaviorTreeReference.cs" />
@@ -649,10 +651,10 @@
     <Compile Include="Assets\Scenes\ThirdParty\UnityLitJson\Unity\UnityTypeBindings.cs" />
     <None Include="Assets\Scenes\ThirdParty\FingerGestures\Readme.txt" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>/Users/guolifeng/main/projects/CodeZero/CodeZero/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>/Users/guolifeng/main/projects/CodeZero/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>/Users/guolifeng/main/projects/CodeZero/CodeZero/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>/Users/guolifeng/main/projects/CodeZero/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity2018.1.9p2/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -849,6 +851,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>/Applications/Unity2018.1.9p2/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="BehaviorDesignerRuntime">
+      <HintPath>/Users/guolifeng/main/projects/CodeZero/Assets/Scenes/ThirdParty/Behavior Designer/Runtime/BehaviorDesignerRuntime.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>/Users/guolifeng/Library/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
@@ -857,9 +862,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>/Users/guolifeng/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="BehaviorDesignerRuntime">
-      <HintPath>/Users/guolifeng/main/projects/CodeZero/CodeZero/Assets/Scenes/ThirdParty/Behavior Designer/Runtime/BehaviorDesignerRuntime.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity2018.1.9p2/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

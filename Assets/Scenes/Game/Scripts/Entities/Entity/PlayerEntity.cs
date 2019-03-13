@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class PlayerEntity : MoveEntity
     protected float m_recordTime;
     protected Vector2 m_beginVelocity;
     protected float m_t;
+    
+    public Action<Vector2> m_updatePlayerPositionAction;
 
     public override void InitEntity()
     {
@@ -63,5 +66,10 @@ public class PlayerEntity : MoveEntity
         
         m_angle -= m_turn.normalized.x * m_turnSpeed * Time.deltaTime;
         m_rigidBody.MoveRotation(m_angle);
+
+        if (m_updatePlayerPositionAction != null)
+        {
+            m_updatePlayerPositionAction(gameObject.transform.position);
+        }
     }
 }
