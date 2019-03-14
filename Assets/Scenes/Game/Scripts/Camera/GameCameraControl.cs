@@ -9,6 +9,7 @@ public class GameCameraControl : MonoBehaviour
     [Range(0, 100)] public float m_maxShakeAngle;
     [Range(0, 10)] public float m_maxOffset;
     [Range(0, 3)] public float m_traumaDecreaseSpeed = 1f;
+    [Range(0, 0.5f)] public float m_allowDistance = 0.2f;
     [SerializeField] public bool m_useRandomSeed;
     [SerializeField] public string m_seed;
     
@@ -66,7 +67,10 @@ public class GameCameraControl : MonoBehaviour
 
     private void UpdateCameraPosition(Vector2 position, float angle)
     {
-        m_camera.transform.position = new Vector3(position.x, position.y, CAMERA_COORD_Z);
+        if (Vector2.Distance(m_camera.transform.position, position) >= m_allowDistance)
+        {
+            m_camera.transform.position = new Vector3(position.x, position.y, CAMERA_COORD_Z);
+        }
         m_camera.transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
