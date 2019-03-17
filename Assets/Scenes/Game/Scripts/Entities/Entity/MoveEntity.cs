@@ -8,6 +8,7 @@ public abstract class MoveEntity : Entity
 	protected BoxCollider2D m_collider;
 	protected float m_angle;
 	protected Vector2 m_velocity;
+	protected BulletLauncherBase m_bulletLauncher;
 
 	[Range(0f, 360f)] public float m_turnSpeed;
 	[Range(0f, 100f)] public float m_moveSpeed;
@@ -20,6 +21,7 @@ public abstract class MoveEntity : Entity
 	{
 		m_rigidBody = GetComponent<Rigidbody2D>();
 		m_collider = GetComponent<BoxCollider2D>();
+		m_bulletLauncher = GetComponent<BulletLauncherBase>();
 		
 		m_rigidBody.mass = m_mass;
 	}
