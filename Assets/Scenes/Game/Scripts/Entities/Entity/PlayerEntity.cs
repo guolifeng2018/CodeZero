@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerEntity : MoveEntity
 {
+    [SerializeField] private GameObject m_cameraFollowNode;
+    
     protected Vector2 m_turn;
     protected bool m_accelerate;
     protected bool m_fire;
@@ -42,6 +44,10 @@ public class PlayerEntity : MoveEntity
     public void SetFireState(bool fire)
     {
         m_fire = fire;
+        if (m_bulletLauncher != null)
+        {
+            m_bulletLauncher.Fire(fire);
+        }
     }
 
     protected float GetSpeed()
@@ -61,7 +67,6 @@ public class PlayerEntity : MoveEntity
         m_t += Time.deltaTime * m_lerpSpeed;
         m_t = Mathf.Clamp01(m_t);
         
-        Debug.LogError("T : " + m_t + "            " + m_velocity + "        " + m_beginVelocity);
         m_rigidBody.velocity = Vector2.Lerp(m_beginVelocity, m_velocity, m_t);
         
         m_angle -= m_turn.normalized.x * m_turnSpeed * Time.deltaTime;
@@ -69,7 +74,7 @@ public class PlayerEntity : MoveEntity
 
         if (m_updatePlayerPositionAction != null)
         {
-            m_updatePlayerPositionAction(gameObject.transform.position);
+            m_updatePlayerPositionAction(transform.position);
         }
     }
 }

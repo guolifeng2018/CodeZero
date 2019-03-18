@@ -21,6 +21,8 @@ public abstract class Entity : MonoBehaviour
     protected int m_mass;
 
     protected EntityType m_entityType;
+
+    [SerializeField] protected int m_hp = 10;
     
     public int EntityID
     {

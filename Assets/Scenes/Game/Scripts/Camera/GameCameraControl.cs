@@ -15,6 +15,8 @@ public class GameCameraControl : MonoBehaviour
     
     [Space(10)]
     [Range(0, 20)] public float m_followSpeed = 1f;
+
+    [Range(0, 100)] public float m_smooth = 1f;
     
     private Camera m_camera;
 
@@ -28,12 +30,14 @@ public class GameCameraControl : MonoBehaviour
     
     private Vector2 m_targetPos;
     private Vector2 m_startPos;
+    private bool m_isParamSet = false;
 
     #endregion
 
     private void Start()
     {
         m_camera = GetComponent<Camera>();
+        m_isParamSet = false;
     }
 
 
@@ -46,13 +50,18 @@ public class GameCameraControl : MonoBehaviour
     public void UpdateCameraTargetPosition(Vector2 position)
     {
         m_targetPos = position;
-        m_startPos = GetCurCameraPos();
+        if (!m_isParamSet)
+        {
+            m_startPos = position;
+            m_isParamSet = true;
+        }
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         //跟随角色
         Vector2 cameraPos = CalculateCameraPosition();
+        m_startPos = cameraPos;
         
         //处理摄像机振动
         float angle = m_maxShakeAngle * m_trauma * GetRandomFloatNegOneToOne();
@@ -67,7 +76,20 @@ public class GameCameraControl : MonoBehaviour
 
     private void UpdateCameraPosition(Vector2 position, float angle)
     {
-        if (Vector2.Distance(m_camera.transform.position, position) >= m_allowDistance)
+        Debug.LogError(position);
+//        if (Vector2.Distance(m_camera.transform.position, position) >= m_allowDistance)
+//        {
+//            m_camera.transform.position = new Vector3(position.x, position.y, CAMERA_COORD_Z);
+//        }
+
+//        float velocityY = 0f;
+//        float velocityX = 0f;
+//        float newPosY = Mathf.SmoothDamp(transform.position.y, position.y, ref velocityY, m_smooth);
+//        float newPosX = Mathf.SmoothDamp(transform.position.x, position.x, ref velocityX, m_smooth);
+//        m_camera.transform.position = new Vector3(newPosX, newPosY, CAMERA_COORD_Z);
+        
+        Vector3 pos = new Vector3(m_targetPos.x, m_targetPos.y, 0f);
+        //if (CheckCameraOutView(pos))
         {
             m_camera.transform.position = new Vector3(position.x, position.y, CAMERA_COORD_Z);
         }
@@ -76,8 +98,8 @@ public class GameCameraControl : MonoBehaviour
 
     private Vector2 CalculateCameraPosition()
     {
-        Vector2 dir = (m_targetPos - m_startPos).normalized;
-        Vector2 pos = GetCurCameraPos() + dir * m_followSpeed * Time.deltaTime;
+        Vector2 dir = (m_targetPos - m_startPos);
+        Vector2 pos = GetCurCameraPos() + dir * m_followSpeed;
 
         return pos;
     }
@@ -111,5 +133,11 @@ public class GameCameraControl : MonoBehaviour
         }
 
         return seed;
+    }
+
+    private bool CheckCameraOutView(Vector3 position)
+    {
+        Vector3 pos = m_camera.WorldToViewportPoint(position);
+        return (pos.x < 0 || pos.x > 1 || pos.y < 0 || pos.y > 1);
     }
 }

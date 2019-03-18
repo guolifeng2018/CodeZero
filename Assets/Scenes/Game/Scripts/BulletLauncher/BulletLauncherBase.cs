@@ -4,22 +4,25 @@ public abstract class BulletLauncherBase : MonoBehaviour
 {
     #region Datas
 
-    [SerializeField] private string m_bulletName = "BulletA";
-    [SerializeField] private int m_maxBulletCount = 100;
-    [SerializeField] private EBulletLauncherType m_launcherType = EBulletLauncherType.Single;
-    [SerializeField] private float m_launcherRate = 0.1f;
-    [SerializeField] private bool m_havePowerStorage = false;
-    [SerializeField] private float m_storageTime;
+    [SerializeField] protected string m_bulletName = "BulletA";
+    [SerializeField] protected int m_maxBulletCount = 100;
+    [SerializeField] protected EBulletLauncherType m_launcherType = EBulletLauncherType.Single;
+    [SerializeField] protected float m_launcherRate = 0.1f;
+    [SerializeField] protected bool m_havePowerStorage = false;
+    [SerializeField] protected float m_storageTime;
     //[SerializeField] private float[] m_storageTimes; //充能时间统一or不统一 maybe。。。
-    [SerializeField] private EBulletStorageStage m_maxStorageTime;
+    [SerializeField] protected EBulletStorageStage m_maxStorageTime;
+    [SerializeField] protected GameObject m_fireNode;
+    [SerializeField] protected GameObject m_forward;
 
     #endregion
 
     protected EBulletStorageStage m_curStorageStage;
     protected bool m_isStoraging;
     protected float m_fireTime;
+    protected bool m_fire;
     
-    public abstract void Fire();
+    public abstract void Fire(bool fire);
 
     protected abstract Vector3 GetFireTowards();
 
