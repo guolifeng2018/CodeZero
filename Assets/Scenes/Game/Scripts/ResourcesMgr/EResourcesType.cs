@@ -23,8 +23,7 @@ public enum ELoadSpeedType
 public enum EUnloadTriggerType
 {
     Auto = 0,
-    UI = 1,
-    Scene = 2,
+    Assets =1,
 }
 
 public enum EResLoadingState

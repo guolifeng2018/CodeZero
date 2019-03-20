@@ -9,6 +9,8 @@ public class ResourcesLoader : MonoBehaviour, ILoader
 	private EResourcesType m_resourcesType;
 	private string m_resName;
 
+	private Coroutine m_coroutine;
+
 	private static WaitForEndOfFrame m_waitForEndOfFrame = new WaitForEndOfFrame();
 
 	private void Start()
@@ -22,19 +24,20 @@ public class ResourcesLoader : MonoBehaviour, ILoader
 		m_loadState = EResLoadingState.WaitForLoad;
 	}
 
-	public Object StartLoad()
+	public ResourceInfo StartLoad()
 	{
 		m_loadState = EResLoadingState.WaitForLoad;
 		string path = GetResPath();
 		Object res = Resources.Load(path);
 		m_loadState = EResLoadingState.Idle;
-		return res;
+		ResourceInfo resInfo = new ResourceInfo(res, m_resName, m_resourcesType);
+		return resInfo;
 	}
 
 	public void StartLoadAsync(Action<ResourceInfo> callBack)
 	{
 		m_loadState = EResLoadingState.Loading;
-		StartCoroutine(Loading(callBack));
+		m_coroutine = StartCoroutine(Loading(callBack));
 	}
 
 	public IEnumerator Loading(Action<ResourceInfo> callBack)
@@ -52,6 +55,15 @@ public class ResourcesLoader : MonoBehaviour, ILoader
 			callBack(resInfo);
 		}
 		
+		EndLoad();
+	}
+
+	public void CancelLoad()
+	{
+		if (m_coroutine != null)
+		{
+			StopCoroutine(m_coroutine);
+		}
 		EndLoad();
 	}
 
@@ -76,5 +88,10 @@ public class ResourcesLoader : MonoBehaviour, ILoader
 		}
 
 		return path;
+	}
+
+	public string GetLoadingKey()
+	{
+		return ResourceInfo.GetResourcesKey(m_resourcesType, m_resName);
 	}
 }
